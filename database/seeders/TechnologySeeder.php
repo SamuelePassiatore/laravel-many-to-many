@@ -20,7 +20,6 @@ class TechnologySeeder extends Seeder
             $new_technology = new Technology();
             $new_technology->label = $label;
             $new_technology->color = $faker->hexColor();
-            $new_technology->icon = $faker->imageUrl('animals', true);
             $new_technology->save();
         }
     }
