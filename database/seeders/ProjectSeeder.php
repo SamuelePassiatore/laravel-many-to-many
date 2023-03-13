@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -20,6 +21,9 @@ class ProjectSeeder extends Seeder
         $type_ids = Type::select('id')->pluck('id')->toArray();
         $type_ids[] = null;
 
+        // Recover ids technologies
+        $technologies_ids = Technology::select('id')->pluck('id')->toArray();
+
         for ($i = 0; $i < 50; $i++) {
             $project = new Project();
 
@@ -31,6 +35,13 @@ class ProjectSeeder extends Seeder
             $project->url = $faker->url();
             $project->is_public = $faker->boolean();
             $project->save();
+
+            // Generate random ids related to projects
+            $project_technologies = [];
+            foreach ($technologies_ids as $technology_id) {
+                if ($faker->boolean()) $project_technologies[] = $technology_id;
+            }
+            $project->technologies()->attach($project_technologies);
         }
     }
 }
