@@ -51,7 +51,7 @@ class TypeController extends Controller
         $type->save();
 
         return to_route('admin.types.index')
-            ->with('message', "'$type->label' category has been successfully created")
+            ->with('message', "'$type->label' type has been successfully created")
             ->with('type', 'success');
     }
 
@@ -105,5 +105,17 @@ class TypeController extends Controller
         return to_route('admin.types.index')
             ->with('message', "'$type->label' type has been successfully deleted")
             ->with('type', 'success');
+    }
+
+    /**
+     * Update the type color
+     */
+    public function patch(Request $request, Type $type)
+    {
+        $data = $request->all();
+
+        $type->update($data);
+
+        return to_route('admin.types.index');
     }
 }

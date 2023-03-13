@@ -36,6 +36,8 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('/admin')->group
     Route::resource('projects', ProjectController::class);
     // Types routes
     Route::resource('types', TypeController::class);
+    //Color types route
+    Route::patch('/types/{type}/patch', [TypeController::class, 'patch'])->name('types.patch');
 });
 
 // Profile routes
@@ -47,4 +49,4 @@ Route::middleware('auth')->name('profile.')->prefix('/profile')->group(function 
 
 require __DIR__ . '/auth.php';
 
-Route::resource('admin/technologies', App\Http\Controllers\Admin\TechnologyController::class, ['as' => 'admin']);
+Route::resource('admin/technologies', App\Http\Controllers\Admin\TechnologyController::class, ['as' => 'admin'])->middleware('auth');

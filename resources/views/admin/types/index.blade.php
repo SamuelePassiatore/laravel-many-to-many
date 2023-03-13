@@ -27,7 +27,14 @@
                 <tr>
                     <th scope="row">{{ $type->id }}</th>
                     <td>{{ $type->label }}</td>
-                    <td>{{ $type->color }}</td>
+                    <td>
+                        <form action="{{ route('admin.types.patch', $type->id) }}" method="POST"
+                            class="color-form col-color" data-name="type">
+                            @method('PATCH')
+                            @csrf
+                            <input type="color" name="color" value="{{ $type->color }}" class="color-field">
+                        </form>
+                    </td>
                     <td>{{ $type->updated_at }}</td>
                     <td>
                         <div class="d-flex">
@@ -84,6 +91,15 @@
         const filterType = document.getElementById('type_id');
         filterType.addEventListener('change', () => {
             filterForm.submit();
+        })
+    </script>
+
+    <script>
+        const colorFields = document.querySelectorAll('.color-field');
+        colorFields.forEach(f => {
+            f.addEventListener('change', () => {
+                f.parentElement.submit();
+            })
         })
     </script>
 @endsection

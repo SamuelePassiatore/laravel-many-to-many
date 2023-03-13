@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Technology extends Model
 {
     use HasFactory;
+    protected $fillable = ['label', 'color', 'icon'];
 
     // Allocate the relation with projects
     public function projects()
