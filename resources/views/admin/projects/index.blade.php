@@ -49,6 +49,7 @@
                 <th scope="col">Slug</th>
                 <th scope="col">Url</th>
                 <th scope="col">Type</th>
+                <th scope="col">Technology</th>
                 <th scope="col">Status</th>
                 <th scope="col">Update at</th>
                 <th scope="col"></th>
@@ -69,6 +70,15 @@
                         @else
                             <div class="text-center">-</div>
                         @endif
+                    </td>
+                    <td>
+                        @forelse ($project->technologies as $technology)
+                            <span class="badge rounded-pill text-bg-{{ $technology->color }}">
+                                {{ $technology->label }}
+                            </span>
+                        @empty
+                            <div class="text-center">-</div>
+                        @endforelse
                     </td>
                     <td>
                         <form action="{{ route('admin.projects.toggle', $project->id) }}" method="POST">
