@@ -29,8 +29,15 @@
                         {{ $project->type?->label ? $project->type->label : '-' }}
                     </div>
                     <div class="my-2">
-                        <strong>Technology:
-                        </strong>
+                        <strong>Technology: </strong>
+                        @forelse ($project->technologies as $technology)
+                            {{ $technology->label }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @empty
+                            No technology
+                        @endforelse
                     </div>
                     <div class="my-2"><strong>Status: </strong> {{ $project->is_public ? 'Public' : 'Private' }}
                     </div>
