@@ -75,7 +75,7 @@
                     </td>
                     <td>
                         @forelse ($project->technologies as $technology)
-                            <span class="badge rounded-pill text-bg-{{ $technology->color }}">
+                            <span class="badge rounded-pill" style="background-color: {{ $technology->color }}">
                                 {{ $technology->label }}
                             </span>
                         @empty

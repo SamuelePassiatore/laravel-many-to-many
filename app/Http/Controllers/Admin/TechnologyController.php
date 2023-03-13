@@ -36,13 +36,13 @@ class TechnologyController extends Controller
     {
         $request->validate([
             'label' => 'required|string|unique:technologies|max:20',
-            'color' => 'nullable|string|max:20',
+            'color' => 'nullable|string|size:7',
             'icon' => 'nullable|image',
         ], [
             'label.required' => "A technology must have at least one label",
             'label.max' => "Technology has a maximum of :max characters",
             'label.unique' => "Already exists a technology with this name",
-            'color.max' => "The color must be a string with :max characters",
+            'color.size' => "The color must be a hexadecimal code with a hash mark",
         ]);
 
         $data = $request->all();
@@ -87,13 +87,13 @@ class TechnologyController extends Controller
     {
         $request->validate([
             'label' => ['required', 'string', 'max:20', Rule::unique('technologies')->ignore($technology->id)],
-            'color' => 'nullable|string|max:20',
+            'color' => 'nullable|string|size:7',
             'icon' => 'nullable|image',
         ], [
             'lable.required' => "A technology must have at least one label",
             'label.max' => "Technology has a maximum of :max characters",
             'label.unique' => "Already exists a technology with this name",
-            'color.max' => "The color must be a string with :max characters",
+            'color.size' => "The color must be a hexadecimal code with a hash mark",
         ]);
 
         $data = $request->all();
