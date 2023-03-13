@@ -64,12 +64,14 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|string|unique:projects',
             'image' => 'nullable|image',
-            'description' => 'string',
+            'description' => 'string|nullable',
             'url' => 'nullable|url|unique:projects',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|exists:technologies,id'
         ], [
             'title.unique' => "The title '$request->title' has already been taken.",
-            'type_id' => "Type of project not valid"
+            'type_id' => "Type of project not valid",
+            'technologies' => "The selected technologies are not valid"
         ]);
 
         $data = $request->all();
@@ -122,12 +124,14 @@ class ProjectController extends Controller
         $request->validate([
             'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'image' => 'nullable|image',
-            'description' => 'string',
+            'description' => 'string|nullable',
             'url' => ['nullable', 'url', Rule::unique('projects')->ignore($project->id)],
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|exists:technologies,id'
         ], [
             'title.unique' => "The title '$request->title' has already been taken.",
-            'type_id' => "Type of project not valid"
+            'type_id' => "Type of project not valid",
+            'technologies' => "The selected technologies are not valid"
         ]);
 
         $data = $request->all();

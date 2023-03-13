@@ -64,13 +64,19 @@
             </div>
         @enderror
     </div>
-    <div class="col-12 d-flex align-items-center justify-content-center my-5">
+    <div class="col-12 d-flex align-items-center justify-content-center mt-5">
         @foreach ($technologies as $technology)
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox">
-                <label class="form-check-label">{{ $technology->label }}</label>
+                <input class="form-check-input" type="checkbox" id="tag-{{ $technology->id }}"
+                    value="{{ $technology->id }}" name="technologies[]" @checked(in_array($technology->id, old('technologies', [])))>
+                <label class="form-check-label" for="tag-{{ $technology->id }}">{{ $technology->label }}</label>
             </div>
         @endforeach
+    </div>
+    <div class="mb-5 mt-2 text-center">
+        @error('technologies')
+            <div class="text-danger flex-column">{{ $message }}</div>
+        @enderror
     </div>
     <div class="col-10">
         <div class="mb-3 mt-5">
