@@ -42,14 +42,14 @@
             @enderror
         </div>
     </div>
-    <div class="col-4 d-flex align-items-center justify-content-center my-5">
-        <div class="form-check form-switch me-5">
+    <div class="col-4 d-flex align-items-center justify-content-center mt-5 mb-4">
+        <div class="form-check form-switch">
             <label class="form-label" for="is_public">Public</label>
             <input class="form-check-input" type="checkbox" role="switch" id="is_public" name="is_public"
                 @if (old('is_public', $project->is_public)) checked @endif>
         </div>
     </div>
-    <div class="col-5 d-flex align-items-center justify-content-center my-5">
+    <div class="col-5 d-flex align-items-center justify-content-center mt-5 mb-4">
         <label class="form-label" for="type_id" style="width: 185px">Type of project</label>
         <select class="form-select @error('type_id') is-invalid @enderror" name="type_id" id="type_id">
             <option value="">No types</option>
@@ -63,6 +63,14 @@
                 {{ $message }}
             </div>
         @enderror
+    </div>
+    <div class="col-12 d-flex align-items-center justify-content-center my-5">
+        @foreach ($technologies as $technology)
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox">
+                <label class="form-check-label">{{ $technology->label }}</label>
+            </div>
+        @endforeach
     </div>
     <div class="col-10">
         <div class="mb-3 mt-5">
