@@ -7,7 +7,7 @@
     <header class="my-4 d-flex justify-content-between align-items-center">
         <h1>Technologies</h1>
         <a href="{{ route('admin.technologies.create') }}" class="btn btn-success me-2">
-            <i class="fas fa-plus"></i>Add Type
+            <i class="fas fa-plus"></i>Add Technology
         </a>
         {{-- <a href="{{ route('admin.types.trash.index') }}" class="btn btn-danger">Trash</a> --}}
     </header>

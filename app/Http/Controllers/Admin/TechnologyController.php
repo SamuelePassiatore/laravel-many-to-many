@@ -98,6 +98,11 @@ class TechnologyController extends Controller
 
         $data = $request->all();
 
+        if (Arr::exists($data, 'icon')) {
+            $img_url = Storage::put('technologies', $data['icon']);
+            $data['icon'] = $img_url;
+        }
+
         $technology->update($data);
 
         return to_route('admin.technologies.index')
