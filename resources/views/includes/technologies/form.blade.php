@@ -36,6 +36,23 @@
             @enderror
         </div>
     </div>
+    <div class="col-10">
+        <div class="mb-3">
+            <label for="icon" class="form-label">Icon:</label>
+            <input type="file" class="form-control @error('icon') is-invalid @enderror" id="icon" name="icon"
+                value="{{ old('icon', $technology->icon) }}">
+            @error('icon')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-2">
+        <img id="icon-preview"
+            src="{{ $technology->icon ? asset('storage/' . $technology->icon) : 'https://marcolanci.it/utils/placeholder.jpg' }}"
+            alt="">
+    </div>
 </div>
 <hr>
 <div class="d-flex justify-content-between mb-3">
@@ -43,3 +60,23 @@
     <button type="submit" class="btn btn-primary">Save</button>
 </div>
 </form>
+
+@section('scripts')
+    <script>
+        const imageInput = document.getElementById('icon');
+        const imagePreview = document.getElementById('icon-preview');
+        const placeholder = 'https://marcolanci.it/utils/placeholder.jpg';
+
+        imageInput.addEventListener('change', () => {
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.readAsDataURL(imageInput.files[0]);
+                reader.onload = e => {
+                    imagePreview.src = e.target.result;
+                }
+            } else {
+                imagePreview.src = placeholder;
+            }
+        })
+    </script>
+@endsection

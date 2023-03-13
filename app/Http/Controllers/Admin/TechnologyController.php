@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class TechnologyController extends Controller
 {
@@ -34,18 +37,22 @@ class TechnologyController extends Controller
         $request->validate([
             'label' => 'required|string|unique:technologies|max:20',
             'color' => 'nullable|string|max:20',
-            'icon' => 'nullable|string',
+            'icon' => 'nullable|image',
         ], [
-            'lable.required' => "A technology must have at least one label",
+            'label.required' => "A technology must have at least one label",
             'label.max' => "Technology has a maximum of :max characters",
             'label.unique' => "Already exists a technology with this name",
             'color.max' => "The color must be a string with :max characters",
-            'icon.string' => "Icon must be a string"
         ]);
 
         $data = $request->all();
 
         $technology = new Technology();
+
+        if (Arr::exists($data, 'icon')) {
+            $img_url = Storage::put('technologies', $data['icon']);
+            $data['icon'] = $img_url;
+        }
 
         $technology->fill($data);
 
@@ -79,22 +86,21 @@ class TechnologyController extends Controller
     public function update(Request $request, Technology $technology)
     {
         $request->validate([
-            'label' => 'required|string|unique:technologies|max:20',
+            'label' => ['required', 'string', 'max:20', Rule::unique('technologies')->ignore($technology->id)],
             'color' => 'nullable|string|max:20',
-            'icon' => 'nullable|string',
+            'icon' => 'nullable|image',
         ], [
             'lable.required' => "A technology must have at least one label",
             'label.max' => "Technology has a maximum of :max characters",
             'label.unique' => "Already exists a technology with this name",
             'color.max' => "The color must be a string with :max characters",
-            'icon.string' => "Icon must be a string"
         ]);
 
         $data = $request->all();
 
         $technology->update($data);
 
-        return to_route('admin.types.index')
+        return to_route('admin.technologies.index')
             ->with('message', "'$technology->label' technology has been successfully modified")
             ->with('type', 'success');
     }

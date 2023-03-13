@@ -18,7 +18,6 @@
                 <th scope="col">#</th>
                 <th scope="col">Label</th>
                 <th scope="col">Color</th>
-                <th scope="col">Icon</th>
                 <th scope="col">Update at</th>
                 <th scope="col"></th>
             </tr>
