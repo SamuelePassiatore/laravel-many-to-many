@@ -116,7 +116,10 @@ class ProjectController extends Controller
     {
         $types = Type::orderBy('label')->get();
         $technologies = Technology::orderBy('id')->get();
-        return view('admin.projects.edit', compact('project', 'technologies', 'types'));
+        // Transform collection in array
+        $project_technologies = $project->technologies->pluck('id')->toArray();
+
+        return view('admin.projects.edit', compact('project', 'technologies', 'types', 'project_technologies'));
     }
 
     /**
