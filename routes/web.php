@@ -4,6 +4,7 @@ use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,8 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('/admin')->group
     Route::resource('types', TypeController::class);
     //Color types route
     Route::patch('/types/{type}/patch', [TypeController::class, 'patch'])->name('types.patch');
+    //Color technologies route
+    Route::patch('/technologies/{technology}/patch', [TechnologyController::class, 'patch'])->name('technologies.patch');
 });
 
 // Profile routes

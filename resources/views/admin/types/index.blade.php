@@ -55,7 +55,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td scope="row" colspan="7" class="text-center">There aren't projects in portfolio with these
+                    <td scope="row" colspan="5" class="text-center">There aren't projects in portfolio with these
                         characteristics</td>
                 </tr>
             @endforelse

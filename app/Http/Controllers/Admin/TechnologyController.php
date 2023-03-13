@@ -115,4 +115,16 @@ class TechnologyController extends Controller
             ->with('message', "'$technology->label' technology has been successfully deleted")
             ->with('technology', 'success');
     }
+
+    /**
+     * Update the type color
+     */
+    public function patch(Request $request, Technology $technology)
+    {
+        $data = $request->all();
+
+        $technology->update($data);
+
+        return to_route('admin.technologies.index');
+    }
 }

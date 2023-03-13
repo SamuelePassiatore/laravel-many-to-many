@@ -27,7 +27,14 @@
                 <tr>
                     <th scope="row">{{ $technology->id }}</th>
                     <td>{{ $technology->label }}</td>
-                    <td>{{ $technology->color }}</td>
+                    <td>
+                        <form action="{{ route('admin.technologies.patch', $technology->id) }}" method="POST"
+                            class="color-form col-color" data-name="technology">
+                            @method('PATCH')
+                            @csrf
+                            <input type="color" name="color" value="{{ $technology->color }}" class="color-field">
+                        </form>
+                    </td>
                     <td>{{ $technology->updated_at }}</td>
                     <td>
                         <div class="d-flex">
@@ -53,8 +60,6 @@
                         characteristics</td>
                 </tr>
             @endforelse
-
-
         </tbody>
     </table>
     <hr>
@@ -85,6 +90,15 @@
         const filterType = document.getElementById('type_id');
         filterType.addEventListener('change', () => {
             filterForm.submit();
+        })
+    </script>
+
+    <script>
+        const colorFields = document.querySelectorAll('.color-field');
+        colorFields.forEach(f => {
+            f.addEventListener('change', () => {
+                f.parentElement.submit();
+            })
         })
     </script>
 @endsection
