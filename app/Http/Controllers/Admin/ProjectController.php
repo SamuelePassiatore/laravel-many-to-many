@@ -93,6 +93,9 @@ class ProjectController extends Controller
 
         $project->save();
 
+        // Relate projects with technologies
+        if (Arr::exists($data, 'technologies')) $project->technologies()->attach($data['technologies']);
+
         return to_route('admin.projects.show', $project->id)
             ->with('message', "'$project->title' project has been successfully created")
             ->with('type', 'success');
