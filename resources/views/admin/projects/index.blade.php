@@ -82,7 +82,7 @@
                             <div class="text-center">-</div>
                         @endforelse
                     </td>
-                    <td>
+                    <td class="text-center">
                         @if ($project->user_id === Auth::id())
                             <form action="{{ route('admin.projects.toggle', $project->id) }}" method="POST">
                                 @method('PATCH')
@@ -93,7 +93,9 @@
                                 </button>
                             </form>
                         @else
-                            {{ $project->is_public ? 'Published' : 'Private' }}
+                            <i
+                                class="fas fa-2x fa-{{ $project->is_public ? 'check' : 'x' }} text-{{ $project->is_public ? 'success' : 'danger' }}">
+                            </i>
                         @endif
                     </td>
                     <td>{{ $project->updated_at }}</td>
