@@ -53,22 +53,24 @@
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary me-2">
                     <i class="fas fa-arrow-left me-2"></i>Back
                 </a>
-                <form action="{{ route('admin.projects.toggle', $project->id) }}" method="POST">
-                    @method('PATCH')
-                    @csrf
-                    <button type="submit" class="btn btn-outline-{{ $project->is_public ? 'danger' : 'success' }}">
-                        {{ $project->is_public ? 'Draft' : 'Publish' }}
-                    </button>
-                </form>
-                <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="delete-form"
-                    data-name="project">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-danger mx-2"><i class="fas fa-trash me-2"></i>Delete</button>
-                </form>
-                <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->id) }}">
-                    <i class="fas fa-pencil me-2"></i>Edit
-                </a>
+                @if ($project->user_id === Auth::id())
+                    <form action="{{ route('admin.projects.toggle', $project->id) }}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        <button type="submit" class="btn btn-outline-{{ $project->is_public ? 'danger' : 'success' }}">
+                            {{ $project->is_public ? 'Draft' : 'Publish' }}
+                        </button>
+                    </form>
+                    <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="delete-form"
+                        data-name="project">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger mx-2"><i class="fas fa-trash me-2"></i>Delete</button>
+                    </form>
+                    <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->id) }}">
+                        <i class="fas fa-pencil me-2"></i>Edit
+                    </a>
+                @endif
             </div>
         </div>
     </section>

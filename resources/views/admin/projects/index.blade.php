@@ -83,14 +83,18 @@
                         @endforelse
                     </td>
                     <td>
-                        <form action="{{ route('admin.projects.toggle', $project->id) }}" method="POST">
-                            @method('PATCH')
-                            @csrf
-                            <button type="submit" class="btn btn-outline">
-                                <i
-                                    class="fas fa-toggle-{{ $project->is_public ? 'on' : 'off' }} {{ $project->is_public ? 'text-success' : 'text-danger' }} fa-2x"></i>
-                            </button>
-                        </form>
+                        @if ($project->user_id === Auth::id())
+                            <form action="{{ route('admin.projects.toggle', $project->id) }}" method="POST">
+                                @method('PATCH')
+                                @csrf
+                                <button type="submit" class="btn btn-outline">
+                                    <i
+                                        class="fas fa-toggle-{{ $project->is_public ? 'on' : 'off' }} {{ $project->is_public ? 'text-success' : 'text-danger' }} fa-2x"></i>
+                                </button>
+                            </form>
+                        @else
+                            {{ $project->is_public ? 'Published' : 'Private' }}
+                        @endif
                     </td>
                     <td>{{ $project->updated_at }}</td>
                     <td>
@@ -98,17 +102,19 @@
                             <a class="btn btn-sm btn-primary" href="{{ route('admin.projects.show', $project->id) }}">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
-                                class="delete-form" data-name="project">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-danger mx-2">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                            <a class="btn btn-sm btn-warning" href="{{ route('admin.projects.edit', $project->id) }}">
-                                <i class="fas fa-pencil"></i>
-                            </a>
+                            @if ($project->user_id === Auth::id())
+                                <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
+                                    class="delete-form" data-name="project">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-danger mx-2">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                                <a class="btn btn-sm btn-warning" href="{{ route('admin.projects.edit', $project->id) }}">
+                                    <i class="fas fa-pencil"></i>
+                                </a>
+                            @endif
                         </div>
                     </td>
 
