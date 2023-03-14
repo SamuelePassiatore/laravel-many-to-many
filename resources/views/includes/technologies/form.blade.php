@@ -39,13 +39,18 @@
     <div class="col-10">
         <div class="mb-3">
             <label for="icon" class="form-label">Icon:</label>
-            <input type="file" class="form-control @error('icon') is-invalid @enderror" id="icon" name="icon"
-                value="{{ old('icon', $technology->icon) }}">
+            <input type="file"
+                class="form-control @if ($technology->icon) d-none @endif @error('icon') is-invalid @enderror"
+                id="icon" name="icon" value="{{ old('icon', $technology->icon) }}">
             @error('icon')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
             @enderror
+            <div class="input-group mb-3 @if (!$technology->icon) d-none @endif" id="prev-img">
+                <button class="btn btn-outline-secondary" type="button" id="change-image">Change icon</button>
+                <input type="text" class="form-control" value="{{ $technology->icon }}" disabled>
+            </div>
         </div>
     </div>
     <div class="col-2">
@@ -62,6 +67,7 @@
 </form>
 
 @section('scripts')
+    {{-- Javascript for img preview --}}
     <script>
         const imageInput = document.getElementById('icon');
         const imagePreview = document.getElementById('icon-preview');
@@ -77,6 +83,23 @@
             } else {
                 imagePreview.src = placeholder;
             }
+        })
+    </script>
+
+    {{-- Javascript for toggle button and input --}}
+    <script>
+        const prevImgField = document.getElementById('prev-img');
+        const changeImageBtn = document.getElementById('change-image');
+
+        const switchImageInput = () => {
+            imageInput.classList.toggle('d-none');
+            prevImgField.classList.toggle('d-none');
+        }
+
+        changeImageBtn.addEventListener('click', () => {
+            imagePreview.src = placeholder;
+            switchImageInput();
+            imageInput.click();
         })
     </script>
 @endsection
