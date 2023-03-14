@@ -62,7 +62,7 @@
                 <tr>
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->title }}</td>
-                    <td>{{ $project->user ? $project->user->name : 'Anonymous' }}</td>
+                    <td>{{ $project->author ? $project->author->name : 'Anonymous' }}</td>
                     <td>{{ $project->slug }}</td>
                     <td>
                         @if ($project->type)

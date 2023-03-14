@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Faker\Generator as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -11,7 +12,7 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(Faker $faker): void
     {
         $user = new User();
 
@@ -20,5 +21,15 @@ class UserSeeder extends Seeder
         $user->password = 'ciaobianca';
 
         $user->save();
+
+        for ($i = 0; $i < 5; $i++) {
+
+            $user = new User();
+            $user->name = $faker->firstName();
+            $user->email = $faker->email();
+            $user->password = 'password';
+
+            $user->save();
+        }
     }
 }
