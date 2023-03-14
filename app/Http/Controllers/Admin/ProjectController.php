@@ -82,7 +82,8 @@ class ProjectController extends Controller
         $data['slug'] = Str::slug($data['title']);
 
         if (Arr::exists($data, 'image')) {
-            $img_url = Storage::put('projects', $data['image']);
+            $extension = $data['image']->extension();
+            $img_url = Storage::putFileAs('projects', $data['image'], "{$data['slug']}.$extension");
             $data['image'] = $img_url;
         }
 
@@ -154,7 +155,8 @@ class ProjectController extends Controller
 
         if (Arr::exists($data, 'image')) {
             if ($project->image) Storage::delete($project->image);
-            $img_url = Storage::put('projects', $data['image']);
+            $extension = $data['image']->extension();
+            $img_url = Storage::putFileAs('projects', $data['image'], "{$data['slug']}.$extension");
             $data['image'] = $img_url;
         }
 

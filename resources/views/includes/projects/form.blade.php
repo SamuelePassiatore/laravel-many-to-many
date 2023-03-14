@@ -165,6 +165,7 @@
         changeImageBtn.addEventListener('click', () => {
             imagePreview.src = placeholder;
             switchImageInput();
+            imageInput.click();
         })
     </script>
 @endsection
