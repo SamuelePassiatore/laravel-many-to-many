@@ -59,4 +59,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserDetail::class, 'user_id');
     }
+
+    // method get full name
+    public function getFullName()
+    {
+        return $this->details?->first_name . ' ' . $this->details?->last_name;
+    }
+
+    // method get Age
+    public function getAge()
+    {
+        if (!$this->details?->date_of_birth) return '----';
+
+        $current_year = date('Y');
+        return $current_year - $this->details->date_of_birth;
+    }
 }
