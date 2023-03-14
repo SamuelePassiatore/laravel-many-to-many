@@ -23,6 +23,8 @@
                     <div><strong>Description: </strong>
                         <p class="my-2"> {{ $project->description }}</p>
                     </div>
+                    <div class="my-2"><strong>Author: </strong>{{ $project->user ? $project->user->name : 'Anonymous' }}
+                    </div>
                     <div class="my-2"><strong>Slug: </strong> {{ $project->slug }} </div>
                     <div class="my-2"><strong>Url: </strong> {{ $project->url }} </div>
                     <div class="my-2"><strong>Type: </strong>

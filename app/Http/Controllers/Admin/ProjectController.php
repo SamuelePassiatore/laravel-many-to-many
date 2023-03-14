@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
@@ -90,6 +91,9 @@ class ProjectController extends Controller
         // $project->slug = Str::slug($project->title, '-');
 
         $project->is_public = Arr::exists($data, 'is_public');
+
+        //Allocate the author of project
+        $project->user_id = Auth::id();
 
         $project->save();
 

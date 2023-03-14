@@ -48,6 +48,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
+                <th scope="col">Author</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Url</th>
                 <th scope="col">Type</th>
@@ -62,6 +63,7 @@
                 <tr>
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->title }}</td>
+                    <td>{{ $project->user ? $project->user->name : 'Anonymous' }}</td>
                     <td>{{ $project->slug }}</td>
                     <td>{{ $project->url }}</td>
                     <td>
