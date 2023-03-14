@@ -81,16 +81,20 @@
     <div class="col-10">
         <div class="mb-3 mt-5">
             <label for="image" class="form-label">Image:</label>
-            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
-                name="image" value="{{ old('image', $project->image) }}">
+            <input type="file"
+                class="form-control @if ($project->image) d-none @endif @error('image') is-invalid @enderror"
+                id="image" name="image" value="{{ old('image', $project->image) }}">
             @error('image')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
             @enderror
-            {{-- @if ($project->image) --}}
-            <button type="button" id="change-image" class="btn btn-primary mb-3 d-none">Cambia immagine</button>
-            {{-- @endif --}}
+            <div class="input-group mb-3 @if (!$project->image) d-none @endif">
+                <button class="btn btn-outline-secondary" type="button">Change image</button>
+                <input type="text" class="form-control" value="{{ $project->image }}" disabled>
+            </div>
+
+
         </div>
     </div>
     <div class="col-2">
@@ -119,6 +123,7 @@
 </form>
 
 @section('scripts')
+    {{-- Javascript for slug reactive --}}
     <script>
         const titleInput = document.getElementById('title');
         const slugInput = document.getElementById('slug');
@@ -128,6 +133,7 @@
         });
     </script>
 
+    {{-- Javascript for img preview --}}
     <script>
         const imageInput = document.getElementById('image');
         const imagePreview = document.getElementById('img-preview');
@@ -146,6 +152,7 @@
         })
     </script>
 
+    {{-- Javascript for toggle button and input --}}
     <script>
         // const imageInput = document.getElementById('image');
         // const imagePreview = document.getElementById('img-preview');
