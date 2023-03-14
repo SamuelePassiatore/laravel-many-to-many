@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
 
         $user->save();
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 2; $i++) {
 
             $user = new User();
             $user->name = $faker->firstName();
