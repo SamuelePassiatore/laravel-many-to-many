@@ -118,6 +118,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        if ($project->user_id !== Auth::id()) {
+            return to_route('admin.projects.show', $project->id)
+                ->with('type', 'danger')
+                ->with('message', "You are not authorized to edit this project");
+        }
         $types = Type::orderBy('label')->get();
         $technologies = Technology::orderBy('id')->get();
         // Transform collection in array
