@@ -55,8 +55,8 @@ class User extends Authenticatable
     }
 
     // Allocate the relation with user detail
-    public function userDetail()
+    public function details()
     {
-        return $this->hasOne(UserDetail::class);
+        return $this->hasOne(UserDetail::class, 'user_id');
     }
 }
