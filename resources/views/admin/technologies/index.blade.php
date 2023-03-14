@@ -48,6 +48,10 @@
                     <td>{{ $technology->updated_at }}</td>
                     <td>
                         <div class="d-flex">
+                            <a class="btn btn-sm btn-primary"
+                                href="{{ route('admin.technologies.show', $technology->id) }}">
+                                <i class="fas fa-eye"></i>
+                            </a>
                             <form action="{{ route('admin.technologies.destroy', $technology->id) }}" method="POST"
                                 class="delete-form" data-name="technology">
                                 @method('DELETE')
@@ -81,13 +85,6 @@
 @endsection
 
 @section('scripts')
-    <script>
-        const filterForm = document.getElementById('filter-form');
-        const filterStatus = document.getElementById('filter-status');
-        filterStatus.addEventListener('change', () => {
-            filterForm.submit();
-        })
-    </script>
 
     {{-- <script>
         const searchInput = document.getElementById('search-input');
@@ -95,13 +92,6 @@
             const searchValue = searchInput.value.trim();
         });
     </script> --}}
-
-    <script>
-        const filterType = document.getElementById('type_id');
-        filterType.addEventListener('change', () => {
-            filterForm.submit();
-        })
-    </script>
 
     <script>
         const colorFields = document.querySelectorAll('.color-field');

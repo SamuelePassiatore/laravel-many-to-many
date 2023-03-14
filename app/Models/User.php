@@ -42,6 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Mutator with bcrypt
     protected function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);

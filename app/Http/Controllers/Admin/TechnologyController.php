@@ -66,7 +66,7 @@ class TechnologyController extends Controller
 
         $technology->save();
 
-        return to_route('admin.technologies.index')
+        return to_route('admin.technologies.show', $technology->id)
             ->with('message', "'$technology->label' technology has been successfully created")
             ->with('technology', 'success');
     }
@@ -77,7 +77,7 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        return to_route('admin.technologies.index');
+        return view('admin.technologies.show', compact('technology'));
     }
 
     /**

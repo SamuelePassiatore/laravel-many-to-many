@@ -99,7 +99,7 @@ class TypeController extends Controller
         $type->update($data);
 
         return to_route('admin.types.index')
-            ->with('message', "'$type->label' category has been successfully modified")
+            ->with('message', "'$type->label' type has been successfully modified")
             ->with('type', 'success');
     }
 
