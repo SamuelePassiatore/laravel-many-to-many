@@ -53,4 +53,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Project::class);
     }
+
+    // Allocate the relation with user detail
+    public function userDetail()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
 }
