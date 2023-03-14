@@ -6,6 +6,16 @@
 
     <header class="my-4 d-flex justify-content-between align-items-center">
         <h1>Technologies</h1>
+        <div class="d-flex align-items-center">
+            <form method="GET" action="{{ route('admin.technologies.index') }}" class="me-5 d-flex" id="filter-form">
+                <div class="d-flex align-items-center">
+                    <label for="search-input">Label</label>
+                    <input type="text" class="filter-text form-control ms-2" placeholder="Insert a technology label"
+                        name="search" value="{{ $search }}" id="search-input">
+                </div>
+                <button class="btn btn-primary ms-3" type="submit">Filter</button>
+            </form>
+        </div>
         <a href="{{ route('admin.technologies.create') }}" class="btn btn-success me-2">
             <i class="fas fa-plus"></i>Add Technology
         </a>

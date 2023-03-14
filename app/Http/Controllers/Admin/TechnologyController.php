@@ -14,10 +14,18 @@ class TechnologyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $technologies = Technology::orderBy('updated_at', 'DESC')->paginate(10);
-        return view('admin.technologies.index', compact('technologies'));
+        $search = $request->query('search');
+        $query = Technology::orderBy('updated_at', 'DESC');
+
+        if ($search) {
+            $query->where('label', 'LIKE', "%$search%");
+        }
+
+        $technologies = $query->paginate(10);
+
+        return view('admin.technologies.index', compact('technologies', 'search'));
     }
 
     /**

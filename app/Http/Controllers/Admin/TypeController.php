@@ -12,10 +12,18 @@ class TypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $types = Type::orderBy('updated_at', 'DESC')->paginate(10);
-        return view('admin.types.index', compact('types'));
+        $search = $request->query('search');
+        $query = Type::orderBy('updated_at', 'DESC');
+
+        if ($search) {
+            $query->where('label', 'LIKE', "%$search%");
+        }
+
+        $types = $query->paginate(10);
+
+        return view('admin.types.index', compact('types', 'search'));
     }
 
     /**
