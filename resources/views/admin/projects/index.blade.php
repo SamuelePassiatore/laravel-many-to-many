@@ -49,7 +49,6 @@
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
-                <th scope="col">Slug</th>
                 <th scope="col">Url</th>
                 <th scope="col">Type</th>
                 <th scope="col">Technology</th>
@@ -65,7 +64,6 @@
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->user ? $project->user->name : 'Anonymous' }}</td>
                     <td>{{ $project->slug }}</td>
-                    <td>{{ $project->url }}</td>
                     <td>
                         @if ($project->type)
                             <span class="badge text-white" style="background-color: {{ $project->type->color }}">
