@@ -23,4 +23,10 @@ class Project extends Model
     {
         return $this->belongsToMany(Technology::class);
     }
+
+    // Allocate the relation with user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

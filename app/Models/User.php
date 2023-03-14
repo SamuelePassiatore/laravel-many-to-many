@@ -47,4 +47,10 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    // Allocate the relation with projects
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
