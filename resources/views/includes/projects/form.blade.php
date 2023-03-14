@@ -89,8 +89,8 @@
                     {{ $message }}
                 </div>
             @enderror
-            <div class="input-group mb-3 @if (!$project->image) d-none @endif">
-                <button class="btn btn-outline-secondary" type="button">Change image</button>
+            <div class="input-group mb-3 @if (!$project->image) d-none @endif" id="prev-img">
+                <button class="btn btn-outline-secondary" type="button" id="change-image">Change image</button>
                 <input type="text" class="form-control" value="{{ $project->image }}" disabled>
             </div>
 
@@ -154,16 +154,17 @@
 
     {{-- Javascript for toggle button and input --}}
     <script>
-        // const imageInput = document.getElementById('image');
-        // const imagePreview = document.getElementById('img-preview');
-        // const changeImageBtn = document.getElementById('change-image');
-        // const placeholder = 'https://marcolanci.it/utils/placeholder.jpg';
+        const prevImgField = document.getElementById('prev-img');
+        const changeImageBtn = document.getElementById('change-image');
 
-        // if (imagePreview.src !== placeholder) {
-        //     // Se sì, mostra l'input file per consentire all'utente di cambiare l'immagine
-        //     imageInput.style.display = 'block';
-        // }
-        // // Nascondi il bottone "Change Image"
-        // changeImageBtn.style.display = 'none';
+        const switchImageInput = () => {
+            imageInput.classList.toggle('d-none');
+            prevImgField.classList.toggle('d-none');
+        }
+
+        changeImageBtn.addEventListener('click', () => {
+            imagePreview.src = placeholder;
+            switchImageInput();
+        })
     </script>
 @endsection
