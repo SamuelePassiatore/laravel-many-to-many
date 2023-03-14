@@ -49,7 +49,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
-                <th scope="col">Url</th>
+                <th scope="col">Slug</th>
                 <th scope="col">Type</th>
                 <th scope="col">Technology</th>
                 <th scope="col">Status</th>
