@@ -130,6 +130,54 @@ class TechnologyController extends Controller
     }
 
     /**
+     * Display a listing of the trashed resource.
+     */
+    public function trash()
+    {
+        $technologies = Technology::onlyTrashed()->paginate(10);
+        return view('admin.technologies.trash.index', compact('technologies'));
+    }
+
+    /**
+     * Restores a single resource from trash to active records.
+     */
+    public function restore(int $id)
+    {
+        $technology = Technology::onlyTrashed()->findOrFail($id);
+
+        $technology->restore();
+
+        return to_route('admin.technologies.index')->with('message', "'$technology->label' has been successfully restored.")->with('type', 'success');
+    }
+
+    /**
+     * Permanently remove the specified resource from storage.
+     */
+    public function drop(int $id)
+    {
+        $technology = Technology::onlyTrashed()->findOrFail($id);
+        $technology->forceDelete();
+
+        return to_route('admin.technologies.trash.index')
+            ->with('message', "'$technology->label' has been deleted permanently")
+            ->with('type', 'success');
+    }
+
+    public function dropAll()
+    {
+
+        $num_technologies = Technology::onlyTrashed()->count();
+
+
+        Technology::onlyTrashed()->forceDelete();
+
+
+        return to_route('admin.technologies.trash.index')
+            ->with('message', "$num_technologies types successfully removed")
+            ->with('type', 'success');
+    }
+
+    /**
      * Update the type color
      */
     public function patch(Request $request, Technology $technology)

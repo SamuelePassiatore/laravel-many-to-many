@@ -45,6 +45,11 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('/admin')->group
     Route::resource('types', TypeController::class);
     //Color types route
     Route::patch('/types/{type}/patch', [TypeController::class, 'patch'])->name('types.patch');
+    //TRASH TECHNOLOGIES
+    Route::get('/technologies/trash', [TechnologyController::class, 'trash'])->name('technologies.trash.index');
+    Route::patch('/technologies/{technology}/restore', [TechnologyController::class, 'restore'])->name('technologies.trash.restore');
+    Route::delete('/technologies/{technology}/drop', [TechnologyController::class, 'drop'])->name('technologies.trash.drop');
+    Route::delete('/technologies/drop', [TechnologyController::class, 'dropAll'])->name('technologies.trash.dropAll');
     // Technologies routes
     Route::resource('technologies', TechnologyController::class);
     //Color technologies route
