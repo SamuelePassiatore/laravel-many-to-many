@@ -29,13 +29,18 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('/admin')->group
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
     // Toggle routes
     Route::patch('/projects/{project}/toggle', [ProjectController::class, 'toggle'])->name('projects.toggle');
-    //TRASH
+    //TRASH PROJECTS
     Route::get('/projects/trash', [ProjectController::class, 'trash'])->name('projects.trash.index');
     Route::patch('/projects/{project}/restore', [ProjectController::class, 'restore'])->name('projects.trash.restore');
     Route::delete('/projects/{project}/drop', [ProjectController::class, 'drop'])->name('projects.trash.drop');
     Route::delete('/projects/drop', [ProjectController::class, 'dropAll'])->name('projects.trash.dropAll');
     // Project routes
     Route::resource('projects', ProjectController::class);
+    //TRASH TYPES
+    Route::get('/types/trash', [TypeController::class, 'trash'])->name('types.trash.index');
+    Route::patch('/types/{type}/restore', [TypeController::class, 'restore'])->name('types.trash.restore');
+    Route::delete('/types/{type}/drop', [TypeController::class, 'drop'])->name('types.trash.drop');
+    Route::delete('/types/drop', [TypeController::class, 'dropAll'])->name('types.trash.dropAll');
     // Types routes
     Route::resource('types', TypeController::class);
     //Color types route

@@ -19,7 +19,7 @@
         <a href="{{ route('admin.types.create') }}" class="btn btn-success me-2">
             <i class="fas fa-plus"></i>Add Type
         </a>
-        {{-- <a href="{{ route('admin.types.trash.index') }}" class="btn btn-danger">Trash</a> --}}
+        <a href="{{ route('admin.types.trash.index') }}" class="btn btn-danger">Trash</a>
     </header>
 
     <table class="table">

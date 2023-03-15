@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class TypeController extends Controller
@@ -114,6 +115,56 @@ class TypeController extends Controller
             ->with('message', "'$type->label' type has been successfully deleted")
             ->with('type', 'success');
     }
+
+    /**
+     * Display a listing of the trashed resource.
+     */
+    public function trash()
+    {
+        $types = Type::onlyTrashed()->paginate(10);
+        return view('admin.types.trash.index', compact('types'));
+    }
+
+    /**
+     * Restores a single resource from trash to active records.
+     */
+    public function restore(int $id)
+    {
+        $type = Type::onlyTrashed()->findOrFail($id);
+
+        $type->restore();
+
+        return to_route('admin.types.index')->with('message', "'$type->label' has been successfully restored.")->with('type', 'success');
+    }
+
+    /**
+     * Permanently remove the specified resource from storage.
+     */
+    public function drop(int $id)
+    {
+        $type = Type::onlyTrashed()->findOrFail($id);
+        // if ($type->image) Storage::delete($type->image);
+        $type->forceDelete();
+
+        return to_route('admin.types.trash.index')
+            ->with('message', "'$type->label' has been deleted permanently")
+            ->with('type', 'success');
+    }
+
+    public function dropAll()
+    {
+
+        $num_types = Type::onlyTrashed()->count();
+
+
+        Type::onlyTrashed()->forceDelete();
+
+
+        return to_route('admin.types.trash.index')
+            ->with('message', "$num_types types successfully removed")
+            ->with('type', 'success');
+    }
+
 
     /**
      * Update the type color
